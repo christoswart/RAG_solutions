@@ -12,6 +12,8 @@ from langchain_chroma import Chroma
 import numpy as np
 from sklearn.manifold import TSNE
 import plotly.graph_objects as go
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationalRetrievalChain
 
 MODEL = "gpt-4o-mini"
 db_name = "vector_db"
@@ -130,3 +132,32 @@ fig.update_layout(
 )
 
 fig.show()
+
+
+# Let's investigate what gets sent behind the scenes
+from langchain_core.callbacks import StdOutCallbackHandler
+
+# create a new Chat with OpenAI
+llm = ChatOpenAI(temperature=0.7, model_name=MODEL)
+
+# set up the conversation memory for the chat
+memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
+
+# the retriever is an abstraction over the VectorStore that will be used during RAG; k is how many chunks to use
+retriever = vectorstore.as_retriever(search_kwargs={"k": 15})
+
+# putting it together: set up the conversation chain with the GPT 3.5 LLM, the vector store and memory
+conversation_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever, memory=memory, callbacks=[StdOutCallbackHandler()])
+
+query = "Can you describe Insurellm in a few sentences"
+result = conversation_chain.invoke({"question":query})
+print("\nAnswer: ", result["answer"])
+
+memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
+conversation_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever, memory=memory)
+
+def chat(message, history):
+    result = conversation_chain.invoke({"question": message})
+    return result["answer"]
+
+view = gr.ChatInterface(chat).launch(inbrowser=True, share=True, debug=True)
