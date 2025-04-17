@@ -1,2 +1,15 @@
 /.env
 /.gradio
+vector_db/chroma.sqlite3
+vector_db/7dee76b5-a6a4-4222-a8b1-022658988a59/data_level0.bin
+vector_db/7dee76b5-a6a4-4222-a8b1-022658988a59/header.bin
+vector_db/7dee76b5-a6a4-4222-a8b1-022658988a59/length.bin
+vector_db/7dee76b5-a6a4-4222-a8b1-022658988a59/link_lists.bin
+vector_db/88e3e8dc-9053-4838-9db2-8be1c818697a/data_level0.bin
+vector_db/88e3e8dc-9053-4838-9db2-8be1c818697a/header.bin
+vector_db/88e3e8dc-9053-4838-9db2-8be1c818697a/length.bin
+vector_db/88e3e8dc-9053-4838-9db2-8be1c818697a/link_lists.bin
+vector_db/c0c8b5c3-19f9-4f39-b21f-45d6ddcb5b10/data_level0.bin
+vector_db/c0c8b5c3-19f9-4f39-b21f-45d6ddcb5b10/header.bin
+vector_db/c0c8b5c3-19f9-4f39-b21f-45d6ddcb5b10/length.bin
+vector_db/c0c8b5c3-19f9-4f39-b21f-45d6ddcb5b10/link_lists.bin
